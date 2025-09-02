@@ -1,0 +1,17 @@
+services:
+  mongodb:
+    image: mongo:8
+    container_name: homeserver-mongodb
+    restart: unless-stopped
+    command: mongod --noauth --replSet rs0 
+    environment:
+      MONGO_INITDB_DATABASE: home
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    ports:
+      - "27017:27017"
+
+volumes:
+  mongodb_data:
+  mongodb_config:
