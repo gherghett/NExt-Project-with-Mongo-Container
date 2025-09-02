@@ -1,14 +1,16 @@
 services:
   mongodb:
-    image: mongo:8
+    build:
+      context: ./mongo   # use custom Dockerfile
+    image: my-mongo-rs:8
     container_name: homeserver-mongodb
     restart: unless-stopped
-    command: mongod --noauth --replSet rs0 
+    command: mongod --noauth --replSet rs0
     environment:
       MONGO_INITDB_DATABASE: home
-    volumes:
-      - mongodb_data:/data/db
-      - mongodb_config:/data/configdb
+      # Use "localhost:27017" if connecting from host
+      # Use "homeserver-mongodb:27017" if connecting from another container
+      MONGO_RS_HOST: "localhost:27017"
     ports:
       - "27017:27017"
 
