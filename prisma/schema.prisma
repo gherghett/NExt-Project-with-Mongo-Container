@@ -4,7 +4,8 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  //hardcoded bc there is no auth
+  url      = "mongodb://localhost:27017/home?replicaSet=rs0"
 }
 
 model User {
@@ -23,3 +24,4 @@ model Post {
   author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
 }
+
